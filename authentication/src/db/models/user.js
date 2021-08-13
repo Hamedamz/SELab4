@@ -33,6 +33,6 @@ UserSchema.methods.verifyPassword = function (password) {
   return comparePassword(password, this.hash_password);
 };
 
-mongoose.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
 
-exports.UserSchema = UserSchema;
+exports.User = User;
