@@ -1,5 +1,6 @@
 const { User } = require('./db/models/user');
-const { getSaltHashPassword } = require('./utils/crypto');
+const { WrongLoginInfoException } = require('./exceptions');
+const { getSaltHashPassword, getJWTToken} = require('./utils/crypto');
 
 exports.registerUser = async (username, password, mobile, email) => {
   const hashPassword = getSaltHashPassword(password);
@@ -26,5 +27,34 @@ exports.registerUser = async (username, password, mobile, email) => {
         });
       }
     });
+  });
+};
+
+exports.getTokenFromUsernameAndPassword = async (username, password) => {
+  return new Promise((resolve, reject) => {
+    User.findOne(
+      { username },
+      function(error, user) {
+        if (error) {
+          reject(error);
+        }
+        if (!user) {
+          reject(new WrongLoginInfoException('Authentication failed. User not found.'));
+        } else if (user) {
+          const isVerified = user.verifyPassword(password);
+
+          if (!isVerified) {
+            reject(new WrongLoginInfoException('Authentication failed. Wrong password.'));
+          } else {
+            resolve({
+              token: getJWTToken({
+                username,
+                id: user.id,
+              })
+            });
+          }
+        }
+      }
+    );
   });
 };
