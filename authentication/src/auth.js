@@ -1,11 +1,11 @@
 const { User } = require('./db/models/user');
-const { WrongLoginInfoException } = require('./exceptions');
+const { WrongLoginInfoException, UserAlreadyExist} = require('./exceptions');
 const { getSaltHashPassword, getJWTToken} = require('./utils/crypto');
 
 exports.registerUser = async (username, password, mobile, email) => {
   const hashPassword = getSaltHashPassword(password);
 
-  const user = new User(
+  const newUser = new User(
     {
       username,
       mobile,
@@ -15,18 +15,28 @@ exports.registerUser = async (username, password, mobile, email) => {
   );
 
   return new Promise((resolve, reject) => {
-    user.save(function(error, user) {
-      if (error) {
-        reject(error);
-      } else {
-        resolve({
-          id: user.id,
-          username: user.username,
-          email: user.email,
-          mobile: user.mobile,
-        });
+    User.findOne(
+      { username },
+      function(error, user) {
+        if (error || user) {
+          reject(new UserAlreadyExist('User already exists.'));
+        }
+        if (!user) {
+          newUser.save(function(error, user) {
+            if (error) {
+              reject(error);
+            } else {
+              resolve({
+                id: user.id,
+                username: user.username,
+                email: user.email,
+                mobile: user.mobile,
+              });
+            }
+          });
+        }
       }
-    });
+    );
   });
 };
 
