@@ -1,7 +1,13 @@
 const express = require('express');
 const { registerUser, getTokenFromUsernameAndPassword} = require('./auth');
+const {authHandler} = require('./middlewares/authHandler');
 
 const authRoutes = express.Router();
+
+authRoutes.get('/check-token', authHandler, function (req, res) {
+  res.setHeader('Username', req.user.username);
+  res.sendStatus(200);
+});
 
 authRoutes.post('/signup', function (req, res, next) {
   const {
