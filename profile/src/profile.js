@@ -2,28 +2,21 @@ const { User } = require('./db/models/user');
 const { UserNotFoundException, Forbidden } = require('./exceptions');
 const { userRoles } = require('./enums');
 
-exports.getProfile = async (username) => {
-  return new Promise((resolve, reject) => {
-    User.findOne(
-      { username },
-      function (error, user) {
-        if (error) {
-          reject(error);
-        } else if (!user) {
-          reject(new UserNotFoundException());
-        } else {
-          resolve({
-            id: user.id,
-            username: user.username,
-            email: user.email,
-            mobile: user.mobile,
-            role: user.role,
-          });
-        }
-      }
-    );
-  });
-};
+exports.getProfile = async (userId) => {
+  const user = await User.findById(userId);
+
+  if (!user) {
+    throw new UserNotFoundException();
+  }
+
+  return {
+    id: user.id,
+    username: user.username,
+    email: user.email,
+    mobile: user.mobile,
+    role: user.role,
+  };
+}
 
 exports.getAllUsers = async (role) => {
   if (role !== userRoles.ADMIN) {
