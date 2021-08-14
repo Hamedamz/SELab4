@@ -6,6 +6,7 @@ const authRoutes = express.Router();
 
 authRoutes.get('/check-token', authHandler, function (req, res) {
   res.setHeader('Username', req.user.username);
+  res.setHeader('Role', req.user.role);
   res.sendStatus(200);
 });
 
