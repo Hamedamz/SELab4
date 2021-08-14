@@ -31,6 +31,7 @@ exports.registerUser = async (username, password, mobile, email) => {
                 username: user.username,
                 email: user.email,
                 mobile: user.mobile,
+                role: user.role,
               });
             }
           });
