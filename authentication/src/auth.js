@@ -44,6 +44,7 @@ exports.getTokenFromUsernameAndPassword = async (username, password) => {
     throw new WrongLoginInfoException('Authentication failed. Wrong password.');
   } else {
     return {
+      id: user.id,
       token: getJWTToken({
         username,
         id: user.id,
