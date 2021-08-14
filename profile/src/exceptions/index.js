@@ -6,4 +6,14 @@ class UserNotFoundException extends Error {
   }
 }
 
+class Forbidden extends Error {
+  constructor (message) {
+    super(message);
+    this.name = 'Forbidden';
+    this.httpStatusCode = 403;
+  }
+}
+
+
 exports.UserNotFoundException = UserNotFoundException;
+exports.Forbidden = Forbidden;
