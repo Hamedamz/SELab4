@@ -1,5 +1,6 @@
 const { User } = require('./db/models/user');
-const { UserNotFoundException } = require('./exceptions');
+const { UserNotFoundException, Forbidden } = require('./exceptions');
+const { userRoles } = require('./enums');
 
 exports.getProfile = async (username) => {
   return new Promise((resolve, reject) => {
@@ -22,4 +23,20 @@ exports.getProfile = async (username) => {
       }
     );
   });
+};
+
+exports.getAllUsers = async (role) => {
+  if (role !== userRoles.ADMIN) {
+    throw new Forbidden();
+  }
+
+  const users = await User.find();
+
+  return users.map((user) => ({
+    id: user.id,
+    username: user.username,
+    mobile: user.mobile,
+    email: user.email,
+    role: user.role,
+  }));
 };
