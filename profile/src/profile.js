@@ -16,6 +16,7 @@ exports.getProfile = async (username) => {
             username: user.username,
             email: user.email,
             mobile: user.mobile,
+            role: user.role,
           });
         }
       }
