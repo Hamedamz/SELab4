@@ -8,15 +8,15 @@ const {
 
 const profileRoutes = express.Router();
 
-profileRoutes.get('/profile', function (req, res, next) {
-  const { role } = req.headers;
+profileRoutes.get('/', function (req, res, next) {
+  const role = req.headers['user-role'];
 
   getAllUsers(role)
     .then((users) => res.status(200).json(users))
     .catch(next);
 });
 
-profileRoutes.get('/profile/:userId', function (req, res, next) {
+profileRoutes.get('/:userId', function (req, res, next) {
   const { userId } = req.params;
 
   getProfile(userId)
@@ -24,7 +24,7 @@ profileRoutes.get('/profile/:userId', function (req, res, next) {
     .catch(next);
 });
 
-profileRoutes.put('/profile/:userId', function (req, res, next) {
+profileRoutes.put('/:userId', function (req, res, next) {
   const { userId } = req.params;
   const newUser = req.body;
 
