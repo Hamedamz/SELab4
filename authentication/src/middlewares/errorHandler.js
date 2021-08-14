@@ -8,8 +8,8 @@ exports.globalErrorHandler = async (error, req, res, next) => {
     res.status(statusCode).json({
       error: {
         name: error.name,
-        message: error.message
-      }
+        message: error.message,
+      },
     });
   } else {
     next();

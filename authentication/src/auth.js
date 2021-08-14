@@ -1,6 +1,6 @@
 const { User } = require('./db/models/user');
-const { WrongLoginInfoException, UserAlreadyExist} = require('./exceptions');
-const { getSaltHashPassword, getJWTToken} = require('./utils/crypto');
+const { WrongLoginInfoException, UserAlreadyExist } = require('./exceptions');
+const { getSaltHashPassword, getJWTToken } = require('./utils/crypto');
 
 exports.registerUser = async (username, password, mobile, email) => {
   const hashPassword = getSaltHashPassword(password);
@@ -11,7 +11,7 @@ exports.registerUser = async (username, password, mobile, email) => {
       mobile,
       email,
       hash_password: hashPassword,
-    }
+    },
   );
 
   const oldUser = await User.findOne({ username});
@@ -48,7 +48,7 @@ exports.getTokenFromUsernameAndPassword = async (username, password) => {
         username,
         id: user.id,
         role: user.role,
-      })
+      }),
     };
   }
 };
