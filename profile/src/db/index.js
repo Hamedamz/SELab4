@@ -7,6 +7,7 @@ exports.connectToDataBase = () => {
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,
+        useFindAndModify: false,
       },
       () => {
         console.log('Database connected');
