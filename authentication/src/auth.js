@@ -14,59 +14,41 @@ exports.registerUser = async (username, password, mobile, email) => {
     }
   );
 
-  return new Promise((resolve, reject) => {
-    User.findOne(
-      { username },
-      function(error, user) {
-        if (error || user) {
-          reject(new UserAlreadyExist('User already exists.'));
-        }
-        if (!user) {
-          newUser.save(function(error, user) {
-            if (error) {
-              reject(error);
-            } else {
-              resolve({
-                id: user.id,
-                username: user.username,
-                email: user.email,
-                mobile: user.mobile,
-                role: user.role,
-              });
-            }
-          });
-        }
-      }
-    );
-  });
+  const oldUser = await User.findOne({ username});
+
+  if (oldUser) {
+    throw new UserAlreadyExist('User already exists.');
+  }
+
+  const user = await newUser.save();
+
+  return {
+    id: user.id,
+    username: user.username,
+    email: user.email,
+    mobile: user.mobile,
+    role: user.role,
+  };
 };
 
 exports.getTokenFromUsernameAndPassword = async (username, password) => {
-  return new Promise((resolve, reject) => {
-    User.findOne(
-      { username },
-      function(error, user) {
-        if (error) {
-          reject(error);
-        }
-        if (!user) {
-          reject(new WrongLoginInfoException('Authentication failed. User not found.'));
-        } else if (user) {
-          const isVerified = user.verifyPassword(password);
+  const user = await User.findOne({ username });
 
-          if (!isVerified) {
-            reject(new WrongLoginInfoException('Authentication failed. Wrong password.'));
-          } else {
-            resolve({
-              token: getJWTToken({
-                username,
-                id: user.id,
-                role: user.role,
-              })
-            });
-          }
-        }
-      }
-    );
-  });
+  if (!user) {
+    throw new WrongLoginInfoException('Authentication failed. User not found.');
+  }
+
+  const isVerified = user.verifyPassword(password);
+
+  if (!isVerified) {
+    throw new WrongLoginInfoException('Authentication failed. Wrong password.');
+  } else {
+    return {
+      token: getJWTToken({
+        username,
+        id: user.id,
+        role: user.role,
+      })
+    };
+  }
 };
