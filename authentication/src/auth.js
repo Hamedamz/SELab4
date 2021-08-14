@@ -61,6 +61,7 @@ exports.getTokenFromUsernameAndPassword = async (username, password) => {
               token: getJWTToken({
                 username,
                 id: user.id,
+                role: user.role,
               })
             });
           }
