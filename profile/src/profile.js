@@ -16,7 +16,7 @@ exports.getProfile = async (userId) => {
     mobile: user.mobile,
     role: user.role,
   };
-}
+};
 
 exports.getAllUsers = async (role) => {
   if (role !== userRoles.ADMIN) {
