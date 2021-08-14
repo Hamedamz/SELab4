@@ -40,3 +40,23 @@ exports.getAllUsers = async (role) => {
     role: user.role,
   }));
 };
+
+exports.updateProfile = async (userId, newProfile) => {
+  const user = await User.findByIdAndUpdate(
+    userId,
+    newProfile,
+    { new: true },
+  );
+
+  if (!user) {
+    throw new UserNotFoundException();
+  }
+
+  return {
+    id: user.id,
+    username: user.username,
+    email: user.email,
+    mobile: user.mobile,
+    role: user.role,
+  };
+};
