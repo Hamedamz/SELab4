@@ -2,6 +2,7 @@
 	"info": {
 		"_postman_id": "61766418-fe8a-45d9-b27a-08fb2e55523f",
 		"name": "SELab4",
+		"description": "# SELab4\n\n## Arshia Moghimi\n## Hamed AliMohammadzadeh",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -74,12 +75,11 @@
 							}
 						],
 						"url": {
-							"raw": "{{url}}/auth/check-token",
+							"raw": "{{url}}/check-token",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
-								"auth",
 								"check-token"
 							]
 						}
@@ -98,12 +98,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFyc2hpYTEiLCJpZCI6IjYxMTgwODJhOGQ0NzkzMDQ0MzYyODhkMSIsInJvbGUiOiJjbGllbnQiLCJpYXQiOjE2Mjg5NjQ5MTUsImV4cCI6MTYyOTA1MTMxNX0.Sr5xcvIiQ9hydaVOuDAs0x4AyH5OICFAZDPlg_GbVlU",
-								"type": "text"
-							},
-							{
-								"key": "role",
-								"value": "admin",
+								"value": "Bearer {{token}}",
 								"type": "text"
 							}
 						],
@@ -179,9 +174,6 @@
 			]
 		}
 	],
-	"auth": {
-		"type": "bearer"
-	},
 	"event": [
 		{
 			"listen": "prerequest",
@@ -205,31 +197,31 @@
 	"variable": [
 		{
 			"key": "url",
-			"value": "http://localhost:8000"
+			"value": "http://localhost:8080"
 		},
 		{
 			"key": "token",
-			"value": ""
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFyc2hpYS5tb2doaW1pIiwiaWQiOiI2MTE5NGExNzkxNGNkMTAwMTJkYTBkMWMiLCJyb2xlIjoiY2xpZW50IiwiaWF0IjoxNjI5MDQ3MzI0LCJleHAiOjE2MjkxMzM3MjR9.h8GCsZQkrLACtnsTviyVgc5TSd-fE5t0MmGKtgfGZHc"
 		},
 		{
 			"key": "userId",
-			"value": ""
+			"value": "61194a17914cd10012da0d1c"
 		},
 		{
 			"key": "username",
-			"value": ""
+			"value": "arshia.moghimi"
 		},
 		{
 			"key": "password",
-			"value": ""
+			"value": "arshia1377"
 		},
 		{
 			"key": "mobile",
-			"value": ""
+			"value": "09194433006"
 		},
 		{
 			"key": "mail",
-			"value": ""
+			"value": "arshia.moghimi98@gmail.com"
 		},
 		{
 			"key": "newMobile",
