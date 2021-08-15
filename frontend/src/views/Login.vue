@@ -31,6 +31,16 @@
           login
         </v-btn>
       </v-form>
+
+      <v-btn
+        :to="{ name: 'signup' }"
+        class="mt-6"
+        rounded
+        text
+        block
+      >
+        signup
+      </v-btn>
     </v-card-text>
   </v-card>
 </template>
@@ -64,7 +74,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-
-</style>
