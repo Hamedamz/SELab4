@@ -1,0 +1,32 @@
+version: '3.1'
+
+services:
+  gateway:
+    container_name: gateway
+    build:
+      context: ./gateway
+    restart: always
+    ports:
+      - 80:8080
+    networks:
+      - n1
+
+  service-auth:
+    container_name: service-auth
+    build:
+      context: ./authentication
+    restart: always
+    networks:
+      - n1
+
+  service-profile:
+    container_name: service-profile
+    build:
+      context: ./profile
+    restart: always
+    networks:
+      - n1
+
+networks:
+  n1:
+    external: true
