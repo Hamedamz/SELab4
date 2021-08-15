@@ -1,15 +1,27 @@
 <template>
-  <hello-world />
+  <div>
+    <user-card
+      :user="user"
+    />
+  </div>
 </template>
 
 <script>
-  import HelloWorld from '../components/HelloWorld'
+// eslint-disable-next-line import/no-cycle
+import { authInstance } from '../auth';
+import UserCard from '../components/UserCard.vue';
 
-  export default {
-    name: 'Home',
+export default {
+  name: 'Home',
 
-    components: {
-      HelloWorld,
+  components: {
+    UserCard,
+  },
+
+  computed: {
+    user() {
+      return authInstance.user;
     },
-  }
+  },
+};
 </script>
