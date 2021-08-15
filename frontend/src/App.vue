@@ -6,6 +6,18 @@
       dark
     >
       <h1>Service</h1>
+
+      <v-spacer />
+
+      <v-btn
+        v-if="isLoggedIn"
+        color="primary"
+        rounded
+        depressed
+        @click="logout"
+      >
+        logout
+      </v-btn>
     </v-app-bar>
 
     <v-main>
@@ -35,10 +47,22 @@ import { authInstance } from './auth';
 export default {
   name: 'App',
 
+  computed: {
+    isLoggedIn() {
+      return Boolean(authInstance.token);
+    },
+  },
+
   async beforeCreate() {
     if (!authInstance.ready) {
       await authInstance.init();
     }
+  },
+
+  methods: {
+    logout() {
+      authInstance.logout();
+    },
   },
 };
 </script>
