@@ -5,9 +5,38 @@
       color="primary"
       dark
     >
-      <h1>Service</h1>
+      <h1>MICRO</h1>
 
       <v-spacer />
+
+      <v-btn
+        color="primary"
+        rounded
+        depressed
+        :to="{ name: 'profile' }"
+        exact
+      >
+        <v-icon left>
+          mdi-account
+        </v-icon>
+
+        profile
+      </v-btn>
+
+      <v-btn
+        v-if="isAdmin"
+        color="primary"
+        rounded
+        depressed
+        :to="{ name: 'admin' }"
+        exact
+      >
+        <v-icon left>
+          mdi-shield
+        </v-icon>
+
+        admin
+      </v-btn>
 
       <v-btn
         v-if="isLoggedIn"
@@ -16,6 +45,10 @@
         depressed
         @click="logout"
       >
+        <v-icon left>
+          mdi-logout
+        </v-icon>
+
         logout
       </v-btn>
     </v-app-bar>
@@ -50,6 +83,10 @@ export default {
   computed: {
     isLoggedIn() {
       return Boolean(authInstance.token);
+    },
+
+    isAdmin() {
+      return authInstance.isAdmin;
     },
   },
 
