@@ -120,6 +120,7 @@ export default {
   watch: {
     user: {
       deep: true,
+      immediate: true,
       handler() {
         this.setModel();
       },
