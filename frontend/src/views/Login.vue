@@ -22,6 +22,7 @@
         />
 
         <v-btn
+          :loading="isLoading"
           color="primary"
           rounded
           block
@@ -43,17 +44,22 @@ export default {
 
   data() {
     return {
+      isLoading: false,
       username: '',
       password: '',
     };
   },
 
   methods: {
-    login() {
-      authInstance.login({
+    async login() {
+      this.isLoading = true;
+
+      await authInstance.login({
         username: this.username,
         password: this.password,
       });
+
+      this.isLoading = false;
     },
   },
 };
