@@ -42,6 +42,14 @@
         signup
       </v-btn>
     </v-card-text>
+
+    <v-snackbar
+      v-model="snackbar"
+      timeout="3000"
+      color="error"
+    >
+      {{ text }}
+    </v-snackbar>
   </v-card>
 </template>
 
@@ -54,6 +62,8 @@ export default {
 
   data() {
     return {
+      snackbar: false,
+      text: '',
       isLoading: false,
       username: '',
       password: '',
@@ -64,12 +74,21 @@ export default {
     async login() {
       this.isLoading = true;
 
-      await authInstance.login({
-        username: this.username,
-        password: this.password,
-      });
+      try {
+        await authInstance.login({
+          username: this.username,
+          password: this.password,
+        });
+      } catch (e) {
+        this.showSnackbar('wrong username or password');
+      } finally {
+        this.isLoading = false;
+      }
+    },
 
-      this.isLoading = false;
+    showSnackbar(text) {
+      this.text = text;
+      this.snackbar = true;
     },
   },
 };
