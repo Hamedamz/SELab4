@@ -1,4 +1,5 @@
 import Vue from 'vue';
+// eslint-disable-next-line import/no-cycle
 import router from '../router';
 
 const http = Vue.prototype.$axios;
@@ -6,7 +7,7 @@ const http = Vue.prototype.$axios;
 const AUTH_TOKEN_LOCAL_STORAGE_KEY = 'auth_token';
 const USER_ID_LOCAL_STORAGE_KEY = 'user_id';
 const LOGOUT_REDIRECT_ROUTE_NAME = 'login';
-const LOGIN_REDIRECT_ROUTE_NAME = 'profile';
+const LOGIN_REDIRECT_ROUTE_NAME = 'home';
 
 export class Auth {
   constructor() {
