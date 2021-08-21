@@ -5,23 +5,39 @@
       color="primary"
       dark
     >
-      <h1>MICRO</h1>
+      <h1>MICRO TWEET</h1>
 
       <v-spacer />
 
-      <v-btn
-        color="primary"
-        rounded
-        depressed
-        :to="{ name: 'profile' }"
-        exact
-      >
-        <v-icon left>
-          mdi-account
-        </v-icon>
+      <template v-if="isLoggedIn">
+        <v-btn
+          color="primary"
+          rounded
+          depressed
+          :to="{ name: 'home' }"
+          exact
+        >
+          <v-icon left>
+            mdi-home
+          </v-icon>
 
-        profile
-      </v-btn>
+          home
+        </v-btn>
+
+        <v-btn
+          color="primary"
+          rounded
+          depressed
+          :to="{ name: 'profile' }"
+          exact
+        >
+          <v-icon left>
+            mdi-account
+          </v-icon>
+
+          profile
+        </v-btn>
+      </template>
 
       <v-btn
         v-if="isAdmin"
@@ -88,12 +104,6 @@ export default {
     isAdmin() {
       return authInstance.isAdmin;
     },
-  },
-
-  async beforeCreate() {
-    if (!authInstance.ready) {
-      await authInstance.init();
-    }
   },
 
   methods: {
