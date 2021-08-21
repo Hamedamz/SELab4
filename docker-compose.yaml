@@ -27,5 +27,13 @@ services:
     networks:
       - overlay
 
+  service-tweets:
+    container_name: service-tweet
+    build:
+      context: ./tweet
+    restart: always
+    networks:
+      - overlay
+
 networks:
   overlay:
