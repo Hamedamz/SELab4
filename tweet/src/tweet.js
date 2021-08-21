@@ -13,7 +13,8 @@ exports.getUserTweets = async (userId) => {
     id: tweet.id,
     username: tweet.username,
     text: tweet.text,
-  }));
+    userId: tweet.user_id,
+  })).reverse();
 };
 
 exports.getAllTweets = async () => {
@@ -23,7 +24,8 @@ exports.getAllTweets = async () => {
     id: tweet.id,
     username: tweet.username,
     text: tweet.text,
-  }));
+    userId: tweet.user_id,
+  })).reverse();
 };
 
 exports.createTweet = async (role, text, userId, username) => {
