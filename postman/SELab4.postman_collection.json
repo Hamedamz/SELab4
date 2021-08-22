@@ -172,6 +172,132 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Tweet",
+			"item": [
+				{
+					"name": "Get All Tweets",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer  {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/tweets/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tweets",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Tweet",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "user-id",
+								"value": "{{userId}}",
+								"type": "text"
+							},
+							{
+								"key": "user-role",
+								"value": "client",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"{{tweet}}\",\r\n    \"username\": {{username}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/tweets/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tweets",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Tweets",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/tweets/users/{{userId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tweets",
+								"users",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Tweet",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "user-role",
+								"value": "admin",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/tweets/{{tweetId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tweets",
+								"{{tweetId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
@@ -229,6 +355,10 @@
 		},
 		{
 			"key": "newMail",
+			"value": ""
+		},
+		{
+			"key": "tweetId",
 			"value": ""
 		}
 	]
