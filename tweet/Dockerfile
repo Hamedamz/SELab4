@@ -6,5 +6,5 @@ COPY package*.json ./
 RUN npm install --only=prod
 COPY . .
 
-EXPOSE 3000
+EXPOSE 8001
 CMD [ "npm", "run", "server" ]
